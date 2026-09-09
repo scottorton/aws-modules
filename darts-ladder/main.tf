@@ -110,7 +110,7 @@ resource "aws_lb_target_group" "app" {
   name        = "${var.app_name}-tg"
   port        = 5000
   protocol    = "HTTP"
-  vpc_id      = data.aws_vpc.existing.id
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
