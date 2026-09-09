@@ -72,7 +72,7 @@ resource "aws_ecr_repository" "app_repo" {
 resource "aws_security_group" "alb_sg" {
   name        = "${var.app_name}-alb-sg"
   description = "Allow inbound HTTP to ALB"
-  vpc_id      = data.aws_vpc.existing.id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 80
@@ -93,7 +93,7 @@ resource "aws_security_group" "alb_sg" {
 resource "aws_security_group" "ecs_sg" {
   name        = "${var.app_name}-ecs-sg"
   description = "Allow inbound from ALB only"
-  vpc_id      = data.aws_vpc.existing.id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port       = 5000
@@ -119,7 +119,7 @@ resource "aws_lb" "main" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = var.existing_subnet_ids
+  subnets            = var.subnet_ids
 }
 
 resource "aws_lb_target_group" "app" {
@@ -273,7 +273,7 @@ resource "aws_ecs_service" "main" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = var.existing_subnet_ids
+    subnets          = var.subnet_ids
     security_groups  = [aws_security_group.ecs_sg.id]
     assign_public_ip = true
   }
