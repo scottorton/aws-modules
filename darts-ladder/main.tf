@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------------
 
 resource "aws_dynamodb_table" "darts_ladder" {
-  name         = "DartsLadder"
+  name         = "${var.app_name}-DartsLadder"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -20,7 +20,7 @@ resource "aws_dynamodb_table" "darts_ladder" {
 }
 
 resource "aws_dynamodb_table" "darts_matches" {
-  name         = "DartsMatches"
+  name         = "${var.app_name}-DartsMatches"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "match_id"
 
