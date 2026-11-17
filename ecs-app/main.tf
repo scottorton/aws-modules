@@ -148,7 +148,7 @@ resource "aws_iam_role" "ecs_task_role" {
 # ------------------------------------------------------------------------------
 
 resource "aws_ecs_cluster" "main" {
-  name = "${var.app_name}-cluster"
+  name = var.cluster_name
 }
 
 resource "aws_cloudwatch_log_group" "ecs" {
@@ -160,8 +160,8 @@ resource "aws_ecs_task_definition" "app" {
   family                   = "${var.app_name}-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"
-  memory                   = "512"
+  cpu                      = var.cpu
+  memory                   = var.mem
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
 

@@ -13,6 +13,21 @@ variable "container_port" {
   type = string
 }
 
+variable "cluster_name" {
+  type = string
+}
+
+variable "cpu" {
+  type = string
+}
+
+variable "mem" {
+  type = string
+}
+
+
+
+
 variable "vpc_id" {
   type        = string
   description = "The ID of your existing VPC"
