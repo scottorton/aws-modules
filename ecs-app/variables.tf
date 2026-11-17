@@ -32,5 +32,6 @@ variable "apps" {
     health_check_path = optional(string, "/")
     environment       = optional(map(string), {})
     task_policy_arns  = optional(list(string), [])
+    sys_ptrace        = optional(bool, false) # add the SYS_PTRACE Linux capability (for strace/gdb/profilers)
   }))
 }

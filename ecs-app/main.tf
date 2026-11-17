@@ -224,6 +224,10 @@ resource "aws_ecs_task_definition" "app" {
       protocol      = "tcp"
     }]
 
+    linuxParameters = each.value.sys_ptrace ? {
+      capabilities = { add = ["SYS_PTRACE"] }
+    } : null
+
     environment = [
       for name, value in merge({ AWS_REGION = local.region }, each.value.environment) :
       { name = name, value = value }

@@ -38,7 +38,8 @@ module "ecs" {
 
 Optional per-app fields: `cpu` (256), `memory` (512), `desired_count` (1), `image`
 (defaults to `<ecr-repo>:latest`), `hosts`, `paths`, `priority` (auto), `health_check_path`
-(`/`), `environment` (map), `task_policy_arns` (list).
+(`/`), `environment` (map), `task_policy_arns` (list), `sys_ptrace` (`false`; adds the
+SYS_PTRACE capability).
 
 **Outputs:** `alb_dns_name`, `alb_zone_id`, `cluster_name`, `ecr_repository_urls`, `service_names`.
 
