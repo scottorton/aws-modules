@@ -171,8 +171,8 @@ resource "aws_ecs_task_definition" "app" {
     essential = true
 
     portMappings = [{
-      containerPort = var.container_port
-      hostPort      = var.container_port
+      containerPort = tonumber(var.container_port)
+      hostPort      = tonumber(var.container_port)
       protocol      = "tcp"
     }]
 
