@@ -1,39 +1,4 @@
 
-# ------------------------------------------------------------------------------
-# 1. DynamoDB Tables 
-# ------------------------------------------------------------------------------
-
-resource "aws_dynamodb_table" "darts_ladder" {
-  name         = "${var.app_name}-DartsLadder"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
-
-  attribute {
-    name = "id"
-    type = "N"
-  }
-
-  tags = {
-    Environment = "production"
-    Application = var.app_name
-  }
-}
-
-resource "aws_dynamodb_table" "darts_matches" {
-  name         = "${var.app_name}-DartsMatches"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "match_id"
-
-  attribute {
-    name = "match_id"
-    type = "S"
-  }
-
-  tags = {
-    Environment = "production"
-    Application = var.app_name
-  }
-}
 
 # ------------------------------------------------------------------------------
 # 2. Amazon ECR Repository
@@ -44,7 +9,7 @@ resource "aws_ecr_repository" "app_repo" {
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
-    scan_on_push = true
+    scan_on_push = false
   }
 }
 
@@ -169,29 +134,6 @@ resource "aws_iam_role" "ecs_task_role" {
       Principal = {
         Service = "ecs-tasks.amazonaws.com"
       }
-    }]
-  })
-}
-
-resource "aws_iam_policy" "dynamodb_policy" {
-  name        = "${var.app_name}-dynamodb-policy"
-  description = "Permissions for Flask container to access DynamoDB tables"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "dynamodb:Scan",
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:UpdateItem",
-        "dynamodb:BatchWriteItem"
-      ]
-      Resource = [
-        aws_dynamodb_table.darts_ladder.arn,
-        aws_dynamodb_table.darts_matches.arn
-      ]
     }]
   })
 }
