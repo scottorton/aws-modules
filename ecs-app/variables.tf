@@ -9,6 +9,10 @@ variable "app_name" {
 
 }
 
+variable "container_port" {
+  type = string
+}
+
 variable "vpc_id" {
   type        = string
   description = "The ID of your existing VPC"
