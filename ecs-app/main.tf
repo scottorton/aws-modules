@@ -138,10 +138,10 @@ resource "aws_iam_role" "ecs_task_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_task_policy_attach" {
-  role       = aws_iam_role.ecs_task_role.name
-  policy_arn = aws_iam_policy.dynamodb_policy.arn
-}
+# resource "aws_iam_role_policy_attachment" "ecs_task_policy_attach" {
+#   role       = aws_iam_role.ecs_task_role.name
+#   policy_arn = aws_iam_policy.dynamodb_policy.arn
+# }
 
 # ------------------------------------------------------------------------------
 # 6. ECS Cluster, Task Definition & Service
