@@ -24,7 +24,7 @@ variable "apps" {
     port              = number
     cpu               = optional(number, 256)
     memory            = optional(number, 512)
-    desired_count     = optional(number, 1)
+    desired_count     = optional(number, 0)
     image             = optional(string) # defaults to a module-created ECR repo, tag :latest
     hosts             = optional(list(string))
     paths             = optional(list(string))
