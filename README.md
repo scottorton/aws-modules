@@ -36,7 +36,7 @@ module "ecs" {
 | `subnet_ids` | `list(string)` | At least two public subnet IDs |
 | `apps` | `map(object)` | Apps keyed by name. Only `port` is required |
 
-Optional per-app fields: `cpu` (256), `memory` (512), `desired_count` (1), `image`
+Optional per-app fields: `cpu` (256), `memory` (512), `desired_count` (0), `image`
 (defaults to `<ecr-repo>:latest`), `hosts`, `paths`, `priority` (auto), `health_check_path`
 (`/`), `environment` (map), `task_policy_arns` (list), `sys_ptrace` (`false`; adds the
 SYS_PTRACE capability).
